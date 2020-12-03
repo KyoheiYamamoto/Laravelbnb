@@ -22,6 +22,6 @@ Route::get('bookables', function (Request $request) {
     return Bookable::all();
 });
 
-Route::get('bookables/{id}/{optional?}', function (Request $request,$id,$optional="aho") {
-    return Bookable::find($id);
+Route::get('bookables/{id}/{optional?}', function (Request $request, $id, $optional = "aho") {
+    return Bookable::findOrFail($id);
 });

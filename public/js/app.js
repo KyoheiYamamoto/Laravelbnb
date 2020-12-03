@@ -1989,32 +1989,24 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.loading = true;
-    setTimeout(function () {
-      _this.bookables = [{
-        id: 1,
-        title: "Cheap Villa !!!",
-        content: "A very cheap villa"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }, {
-        title: "Cheap Villa 2",
-        content: "A very cheap villa 2"
-      }];
+    var p = new Promise(function (resolve, reject) {
+      console.log(resolve);
+      console.log(reject);
+      setTimeout(function () {
+        return resolve("Hello");
+      }, 3000);
+    }).then(function (result) {
+      return "Hello again " + result;
+    }).then(function (result) {
+      return console.log(result);
+    })["catch"](function (result) {
+      return console.log("Error ".concat(result));
+    });
+    console.log(p);
+    var request = axios.get("/api/bookables").then(function (response) {
+      _this.bookables = response.data;
       _this.loading = false;
-    }, 2000);
+    });
   }
 });
 
