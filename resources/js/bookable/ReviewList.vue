@@ -9,7 +9,7 @@
                     <div class="col-md-6">Kyohei Yamamoto</div>
                     <div class="col-md-6 d-flex justify-content-end">
 
-                        <star-rating :rating="review.rating" class="fa-lg"></star-rating>
+                        <star-rating :rating="value" class="fa-lg"></star-rating>
                     </div>
                 </div>
                 <div class="row">
