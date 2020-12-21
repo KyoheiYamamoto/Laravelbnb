@@ -51,6 +51,7 @@
 </template>
 
 <script>
+
 export default {
     props: {
         bookableId: String
