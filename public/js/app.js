@@ -2102,8 +2102,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-// import moment from 'moment';
+// import moment from "moment";
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     bookableId: String
@@ -2123,10 +2122,10 @@ __webpack_require__.r(__webpack_exports__);
     }).then(function () {
       return _this.loading = false;
     });
-  } // filters:{
-  //     fromNow(value){
-  //         return moment(value).fromNow();
-  //     }
+  } // filters: {
+  //   fromNow(value) {
+  //     return moment(value).fromNow();
+  //   }
   // }
 
 });
@@ -60486,7 +60485,7 @@ var render = function() {
                     [
                       _c("star-rating", {
                         staticClass: "fa-lg",
-                        attrs: { rating: _vm.value }
+                        attrs: { value: review.rating }
                       })
                     ],
                     1
