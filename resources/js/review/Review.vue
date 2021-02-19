@@ -40,7 +40,11 @@
               ></textarea>
             </div>
 
-            <button class="btn btn-lg btn-primary btn-block">Submit</button>
+            <button
+              class="btn btn-lg btn-primary btn-block"
+              @click.prevent="submit"
+              :disabled="loading"
+            >Submit</button>
           </div>
         </div>
       </div>
@@ -49,8 +53,7 @@
 </template>
 
 <script>
-import { is404 } from "./../shared/utils/responce";
-
+import {is404} from "./../shared/utils/responce";
 export default {
   data() {
     return {
@@ -112,6 +115,16 @@ export default {
     },
     twoColumns() {
       return this.loading || !this.alreadyReviewed;
+    }
+  },
+  methods: {
+    submit() {
+      this.loading = true;
+      axios
+        .post(`/api/reviews`, this.review)
+        .then(response => console.log(response))
+        .catch(err => (this.error = true))
+        .then(() => (this.loading = false));
     }
   }
 };

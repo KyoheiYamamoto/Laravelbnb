@@ -2289,6 +2289,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2345,6 +2349,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     twoColumns: function twoColumns() {
       return this.loading || !this.alreadyReviewed;
+    }
+  },
+  methods: {
+    submit: function submit() {
+      var _this2 = this;
+
+      this.loading = true;
+      axios.post("/api/reviews", this.review).then(function (response) {
+        return console.log(response);
+      })["catch"](function (err) {
+        return _this2.error = true;
+      }).then(function () {
+        return _this2.loading = false;
+      });
     }
   }
 });
@@ -60797,7 +60815,16 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "button",
-                            { staticClass: "btn btn-lg btn-primary btn-block" },
+                            {
+                              staticClass: "btn btn-lg btn-primary btn-block",
+                              attrs: { disabled: _vm.loading },
+                              on: {
+                                click: function($event) {
+                                  $event.preventDefault()
+                                  return _vm.submit($event)
+                                }
+                              }
+                            },
                             [_vm._v("Submit")]
                           )
                         ])
