@@ -16,8 +16,8 @@ class BookableIndexResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title'=> $this->title,
-            'description'=> $this->description
+            'title' => $this->title,
+            'description' => $this->description
         ];
     }
 }

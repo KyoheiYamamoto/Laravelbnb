@@ -39,11 +39,7 @@
                 v-model="review.content"
                 :class="[{'is-invalid': errorFor('content')}]"
               ></textarea>
-              <div
-                class="invalid-feedback"
-                v-for="(error, index) in errorFor('content')"
-                :key="'content' + index"
-              >{{ error }}</div>
+              <v-errors :errors="errorFor('content')"></v-errors>
             </div>
 
             <button
@@ -59,7 +55,7 @@
 </template>
 
 <script>
-import { is404, is422 } from "./../shared/utils/responce";
+import { is404, is422 } from "./../shared/utils/response";
 
 export default {
   data() {

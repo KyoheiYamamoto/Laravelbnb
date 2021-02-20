@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <h6 class="text-uppercase text-secondary font-weight-bolder">
@@ -16,15 +17,9 @@
           placeholder="Start date"
           v-model="from"
           @keyup.enter="check"
-          :class="[{ 'is-invalid': this.errorFor('from') }]"
+          :class="[{'is-invalid': errorFor('from')}]"
         />
-        <div
-          class="invalid-feedback"
-          v-for="(error, index) in this.errorFor('from')"
-          :key="'from' + index"
-        >
-          {{ error }}
-        </div>
+        <v-errors :errors="errorFor('from')"></v-errors>
       </div>
 
       <div class="form-group col-md-6">
@@ -36,30 +31,23 @@
           placeholder="End date"
           v-model="to"
           @keyup.enter="check"
-          :class="[{ 'is-invalid': this.errorFor('to') }]"
+          :class="[{'is-invalid': errorFor('to')}]"
         />
-        <div
-          class="invalid-feedback"
-          v-for="(error, index) in this.errorFor('to')"
-          :key="'to' + index"
-        >
-          {{ error }}
-        </div>
+        <v-errors :errors="errorFor('to')"></v-errors>
       </div>
     </div>
 
-    <button class="btn btn-secondary btn-block" @click="check" :disabled="loading">
-      Check!
-    </button>
+    <button class="btn btn-secondary btn-block" @click="check" :disabled="loading">Check!</button>
   </div>
 </template>
 
 <script>
-import {is422} from "./../shared/utils//responce";
+import { is422 } from "./../shared/utils/response";
+
 
 export default {
   props: {
-    bookableId: String,
+    bookableId: String
   },
   data() {
     return {
@@ -67,7 +55,7 @@ export default {
       to: null,
       loading: false,
       status: null,
-      errors: null,
+      errors: null
     };
   },
   methods: {
@@ -78,11 +66,11 @@ export default {
         .get(
           `/api/bookables/${this.bookableId}/availability?from=${this.from}&to=${this.to}`
         )
-        .then((response) => {
+        .then(response => {
           this.status = response.status;
         })
-        .catch((error) => {
-          if (is422(error) ) {
+        .catch(error => {
+          if (is422(error)) {
             this.errors = error.response.data.errors;
           }
           this.status = error.response.status;
@@ -91,7 +79,7 @@ export default {
     },
     errorFor(field) {
       return this.hasErrors && this.errors[field] ? this.errors[field] : null;
-    },
+    }
   },
   computed: {
     hasErrors() {
@@ -102,8 +90,8 @@ export default {
     },
     noAvailability() {
       return 404 === this.status;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -114,12 +102,10 @@ label {
   color: gray;
   font-weight: bolder;
 }
-
 .is-invalid {
   border-color: #b22222;
   background-image: none;
 }
-
 .invalid-feedback {
   color: #b22222;
 }
