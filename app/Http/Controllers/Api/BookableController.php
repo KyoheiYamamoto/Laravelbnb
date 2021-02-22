@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BookableIndexResource;
-use App\Http\Resources\BookableShowResource;
 use Illuminate\Http\Request;
 use App\Bookable;
+use App\Http\Resources\BookableIndexResource;
+use App\Http\Resources\BookableShowResource;
 
 class BookableController extends Controller
 {
@@ -17,7 +17,7 @@ class BookableController extends Controller
         );
     }
 
-    protected function show($id)
+    public function show($id)
     {
         return new BookableShowResource(Bookable::findOrFail($id));
     }

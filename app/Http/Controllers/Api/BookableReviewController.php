@@ -12,7 +12,7 @@ class BookableReviewController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function __invoke($id, Request $request)
@@ -22,7 +22,5 @@ class BookableReviewController extends Controller
         return BookableReviewIndexResource::collection(
             $bookable->reviews()->latest()->get()
         );
-
-
     }
 }
