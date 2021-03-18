@@ -16,7 +16,7 @@
           placeholder="Start date"
           v-model="from"
           @keyup.enter="check"
-          :class="[{'is-invalid': errorFor('from')}]"
+          :class="[{ 'is-invalid': errorFor('from') }]"
         />
         <v-errors :errors="errorFor('from')"></v-errors>
       </div>
@@ -30,13 +30,15 @@
           placeholder="End date"
           v-model="to"
           @keyup.enter="check"
-          :class="[{'is-invalid': errorFor('to')}]"
+          :class="[{ 'is-invalid': errorFor('to') }]"
         />
         <v-errors :errors="errorFor('to')"></v-errors>
       </div>
     </div>
 
-    <button class="btn btn-secondary btn-block" @click="check" :disabled="loading">Check!</button>
+    <button class="btn btn-secondary btn-block" @click="check" :disabled="loading">
+      Check!
+    </button>
   </div>
 </template>
 
@@ -46,35 +48,39 @@ import validationErrors from "./../shared/mixins/validationErrors";
 export default {
   mixins: [validationErrors],
   props: {
-    bookableId:  [String,Number]
+    bookableId: [String, Number],
   },
   data() {
     return {
-      from: null,
-      to: null,
+      from: this.$store.state.lastSearch.from,
+      to: this.$store.state.lastSearch.to,
       loading: false,
-      status: null
+      status: null,
     };
   },
   methods: {
     check() {
       this.loading = true;
       this.errors = null;
+      this.$store.commit("setLastSearch", {
+        from: this.from,
+        to: this.to,
+      });
       axios
         .get(
           `/api/bookables/${this.bookableId}/availability?from=${this.from}&to=${this.to}`
         )
-        .then(response => {
+        .then((response) => {
           this.status = response.status;
         })
-        .catch(error => {
+        .catch((error) => {
           if (is422(error)) {
             this.errors = error.response.data.errors;
           }
           this.status = error.response.status;
         })
         .then(() => (this.loading = false));
-    }
+    },
   },
   computed: {
     hasErrors() {
@@ -85,8 +91,8 @@ export default {
     },
     noAvailability() {
       return 404 === this.status;
-    }
-  }
+    },
+  },
 };
 </script>
 
